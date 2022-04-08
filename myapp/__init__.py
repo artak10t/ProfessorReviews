@@ -2,7 +2,6 @@ import flask
 import os
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from flaskext.markdown import Markdown
 
 # gives current directory of this file
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -15,10 +14,9 @@ myapp_obj.config.from_mapping(
 )
 
 db = SQLAlchemy(myapp_obj)
-Markdown(myapp_obj)
 # db.create_all()
 
 login = LoginManager(myapp_obj)
 login.login_view = 'login'
 
-from myapp import routes, routesUser, routesNotes, models
+from myapp import routes, routesUser, models
