@@ -5,4 +5,4 @@ from myapp import db
 
 @myapp_obj.route("/")
 def home():
-    return render_template('home.html')
+    return render_template('home.html', authorized=current_user.is_authenticated)
