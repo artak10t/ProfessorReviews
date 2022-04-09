@@ -6,7 +6,6 @@ from myapp import db
 from sqlalchemy.exc import IntegrityError
 from myapp.models import User
 from flask_login import current_user, login_user, logout_user, login_required
-from datetime import datetime, timedelta
 
 @myapp_obj.route("/delete")
 @login_required
@@ -35,7 +34,11 @@ def register():
             return redirect('register')
 
         try:
-            p = User(email=form.email.data)
+            count = db.session.query(User).count()
+            if(count > 0):
+                p = User(email=form.email.data)
+            else:
+                p = User(email=form.email.data, moderator=True)
             p.set_password(password=form.password.data)
             db.session.add(p)
             db.session.commit()

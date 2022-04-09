@@ -13,3 +13,8 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     repeatPassword = PasswordField('Repeat Password', validators=[DataRequired()])
     submit = SubmitField('Register')
+
+class GrantModeratorForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired()])
+    status = BooleanField('Moderator')
+    submit = SubmitField('Grant')
