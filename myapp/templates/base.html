@@ -14,7 +14,7 @@
             crossorigin="anonymous"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Examo</title>
+    <title>ProfessorReview</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,6 +22,10 @@
             <a class="navbar-brand" href="/">
                 <img src="/static/icon.png" width="30" height="30" alt="">
             </a>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search Professor" aria-label="Search">
+                <button class="btn btn btn-dark my-2 my-sm-0" href="/search_professor" type="submit">Search</button>
+            </form>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     {% if moderator %}
