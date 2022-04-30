@@ -1,3 +1,4 @@
+import datetime
 from myapp import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -23,8 +24,11 @@ class User(UserMixin, db.Model):
 class Professor(UserMixin, db.Model):
     __tablename__ = 'Professor'
     id = db.Column(db.Integer, primary_key=True)
+    image = db.Column(db.String(512))
     name = db.Column(db.String(64), unique=True, index=True)
-    department = db.Column(db.String(64))
+    email = db.Column(db.String(256))
+    department = db.Column(db.String(32))
+    created = db.Column(db.Date(), default=datetime.datetime.utcnow)
 
 @login.user_loader
 def load_user(id):

@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"></script>
@@ -29,12 +30,12 @@
                 <li class="nav-item mr-4">
                     <a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item" style="width:320px !important;">
-                    <input class="form-control mr-sm-2 rounded-0" type="search" placeholder="Search Professor" aria-label="Search">
-                </li>
-                <li class="nav-item mr-3">
-                    <a class="nav-link" href="/search_professor">Search <span class="sr-only">(current)</span></a>
-                </li>
+                <form action="/search">
+                <div class="input-group rounded" style="width:320px !important;">
+                    <input type="search" name="name" class="form-control rounded-0" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-dark"><i class="fa fa-search"></i></button>
+                </div>
+                </form>
             </ul>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">

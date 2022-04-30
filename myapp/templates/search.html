@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container p-3 row  mx-auto">
+    {% for professor in professors %}
+    <ul class="list-group m-3">
+        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 15rem;">
+            <div class="card-body">
+                <div class="card-block">
+                    <h5 class="card-title" text="Title">
+                        <div class="text-center">{{ professor.name }}</div>
+                    </h5>
+                    <img src={{professor.image}} alt={{professor.name}} class="img-thumbnail">
+                    <hr/>
+                    <div class="text-center">Department: {{ professor.department }}</div><br/>
+                    <a href="{{'/show_professor/%s'%professor.id }}" class="btn btn-secondary btn-block">View</a>
+                </div>
+            </div>
+        </div>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock %}

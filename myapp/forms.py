@@ -18,3 +18,10 @@ class GrantModeratorForm(FlaskForm):
     email = StringField('SJSU Email', validators=[DataRequired()])
     status = BooleanField('Moderator')
     submit = SubmitField('Grant')
+
+class AddProfessorForm(FlaskForm):
+    image = StringField('Image Link')
+    name = StringField('Full Name', validators=[DataRequired()])
+    email = StringField('SJSU Email', validators=[DataRequired()])
+    department = StringField('Department', validators=[DataRequired()])
+    submit = SubmitField('Submit')
