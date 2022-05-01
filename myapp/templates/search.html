@@ -4,15 +4,17 @@
 <div class="container p-3 row  mx-auto">
     {% for professor in professors %}
     <ul class="list-group m-3">
-        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 15rem;">
+        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 25rem;">
             <div class="card-body">
                 <div class="card-block">
                     <h5 class="card-title" text="Title">
                         <div class="text-center">{{ professor.name }}</div>
                     </h5>
-                    <img src={{professor.image}} alt={{professor.name}} class="img-thumbnail">
+                    <div class="d-flex justify-content-center">
+                        <img src={{professor.image}} alt={{professor.name}} style="height: 150px; width: auto;border-style: solid; border-color: #6c757d;">
+                    </div>
                     <hr/>
-                    <div class="text-center">Department: {{ professor.department }}</div><br/>
+                    <div class="text-center">{{ professor.department }} Department</div><br/>
                     <a href="{{'/show_professor/%s'%professor.id }}" class="btn btn-secondary btn-block">View</a>
                 </div>
             </div>

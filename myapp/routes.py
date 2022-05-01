@@ -20,3 +20,14 @@ def search():
         return render_template('search.html', professors=professors, authorized=current_user.is_authenticated, moderator=current_user.moderator)
 
     return render_template('search.html', professors=professors, authorized=current_user.is_authenticated)
+
+@myapp_obj.route("/show_professor/<id>", methods=['GET'])
+def show(id):
+    professor = Professor.query.filter_by(id=id).first()
+    if professor == None:
+        return redirect('/')
+
+    if(current_user.is_authenticated):
+        return render_template('show_professor.html', professor=professor, authorized=current_user.is_authenticated, moderator=current_user.moderator)
+
+    return render_template('show_professor.html', professor=professor, authorized=current_user.is_authenticated)

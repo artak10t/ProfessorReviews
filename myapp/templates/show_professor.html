@@ -1,10 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
+<link rel="stylesheet" href="../static/professorPage.css"/>
 <div class="jumbotron">
     <div class="container">
-        <h1 class="text-muted display-4 text-center" style="font-size:40px">San Jose State University</h1>
-        <h1 strong class="display-1 text-center" style="font-weight:bold">Professor Reviews</h1>
+        <h1 class="text-bold display-4 text-center" style="font-size:40px">{{professor.name}}</h1>
+
+        <div class="row">
+            <div class="col-sm profile">
+                <div class="container mt-4 ">
+                    <div class="">
+                        <div class="image d-flex flex-column justify-content-center align-items-center"> <img src={{professor.image}}/></button>
+                            <div class="d-flex flex-row justify-content-center align-items-center gap-2 mt-3"> <span class="idd1">{{professor.department}} Department</span></div>
+                            <span class="idd">{{professor.email}}</span>
+                            <div class=" px-2 rounded"><span class="join">Joined {{professor.created}}</span></div>
+                            <button class="btn btn-secondary btn-lg mt-5">Give Feedback</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm rating">                
+                <div class="row">
+                    <div class="col-md-4 border-right">
+                        <div class="ratings text-center py-5"> <span class="badge badge-secondary">4.1 <i class="fa fa-star-o"></i></span> <span class="d-block font-weight-bold">RATING</span> <span class="d-block total-ratings">Very Good</span> </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ratings text-center py-5"> <span class="badge badge-secondary">4.5 <i class="fa fa-star-o"></i></span> <span class="d-block font-weight-bold">DIFFICULTY</span> <span class="d-block total-ratings">Hard</span> </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="rating-progress-bars">
+                            <div class="font-weight-bold text-center mt-3">16 REVIEWS</div>
+
+                            <div class="progress-1 align-items-center">
+                                <div class="font-italic">5 Stars</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"> 71% </div>
+                                </div>
+                                <div class="font-italic">4 Stars</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                </div>
+                                <div class="font-italic">3 Stars</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">48%</div>
+                                </div>
+                                <div class="font-italic">2 Stars</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                </div>
+                                <div class="font-italic">1 Stars</div>
+                                <div class="progress">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
     </div>
 </div>
 {% endblock %}

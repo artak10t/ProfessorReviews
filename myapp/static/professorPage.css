@@ -1,0 +1,73 @@
+.profile {
+    margin: 0;
+    padding: 0
+}
+
+.profile body {
+    background-color: #000
+}
+
+.profile .image img {
+    transition: all 0.5s;
+    height: 200px;
+    width: auto;
+    border-style: solid;
+    border-color: #6c757d;
+}
+
+
+.profile .name {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.profile .idd {
+    font-size: 16px;
+    font-weight: 600
+}
+
+.profile .idd1 {
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.profile .number {
+    font-size: 24px;
+    font-weight: bold
+}
+
+.profile .reviews {
+    font-size: 12px;
+    font-weight: 500;
+    color: #444444
+}
+
+.profile .btn1 {
+    height: 40px;
+    width: 150px;
+    border: none;
+    background-color: #000;
+    color: #aeaeae;
+    font-size: 15px
+}
+
+.profile .text span {
+    font-size: 13px;
+    color: #545454;
+    font-weight: 500
+}
+
+.profile .icons i {
+    font-size: 19px
+}
+
+.profile hr .new1 {
+    border: 1px solid
+}
+
+.profile .join {
+    font-size: 14px;
+    color: #a0a0a0;
+    font-weight: bold
+}
