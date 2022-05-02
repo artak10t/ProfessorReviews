@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" novalidate>
+    <div class="jumbotron">
+        <div class="container">
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                <h1>Review</h1>
+
+                <div class="form-group">
+                    <label>{{ form.message.label }}</label>
+                    {{ form.message(class="form-control", size=256) }}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.rating.label }}</label>
+                    {{ form.rating(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.difficulty.label }}</label>
+                    {{ form.difficulty(class="form-control") }}
+                </div>
+
+                <div class="form-group">
+                    <label>{{ form.recommend.label }}</label>
+                    {{ form.recommend(class="form-control") }}
+                </div>
+
+                {{ form.submit(class="btn btn-secondary") }}
+            </form>
+        </div>
+    </div>
+</form>
+{% endblock %}

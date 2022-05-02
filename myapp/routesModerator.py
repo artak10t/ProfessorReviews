@@ -24,7 +24,7 @@ def grantModerator():
             flash('Email does not exist')
             return redirect('/')
 
-    return render_template('grant_moderator.html', form=form, authorized=current_user.is_authenticated)
+    return render_template('grant_moderator.html', form=form, authorized=current_user.is_authenticated, moderator=current_user.moderator)
 
 @myapp_obj.route("/add_professor", methods=['GET', 'POST'])
 @login_required
@@ -43,4 +43,4 @@ def addProfessor():
         except Exception:
             return redirect('/')
 
-    return render_template('add_professor.html', form=form, authorized=current_user.is_authenticated)
+    return render_template('add_professor.html', form=form, authorized=current_user.is_authenticated, moderator=current_user.moderator)

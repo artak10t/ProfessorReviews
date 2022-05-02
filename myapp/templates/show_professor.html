@@ -14,7 +14,7 @@
                             <div class="d-flex flex-row justify-content-center align-items-center gap-2 mt-3"> <span class="idd1">{{professor.department}} Department</span></div>
                             <span class="idd">{{professor.email}}</span>
                             <div class=" px-2 rounded"><span class="join">Joined {{professor.created}}</span></div>
-                            <button class="btn btn-secondary btn-lg mt-5">Give Feedback</button>
+                            <a class="btn btn-secondary btn-lg mt-5" href="{{ '/add_review/%s'%professor.id }}">Give Feedback</a>
                         </div>
                     </div>
                 </div>
@@ -23,35 +23,35 @@
             <div class="col-sm rating">                
                 <div class="row">
                     <div class="col-md-4 border-right">
-                        <div class="ratings text-center py-5"> <span class="badge badge-secondary">4.1 <i class="fa fa-star-o"></i></span> <span class="d-block font-weight-bold">RATING</span> <span class="d-block total-ratings">Very Good</span> </div>
+                        <div class="ratings text-center py-5"> <span class="badge badge-secondary">{{ professor.rating }} <i class="fa fa-star-o"></i></span> <span class="d-block font-weight-bold">RATING</span> <span class="d-block total-ratings">{{ txtRating }}</span></div>
                     </div>
                     <div class="col-md-4">
-                        <div class="ratings text-center py-5"> <span class="badge badge-secondary">4.5 <i class="fa fa-star-o"></i></span> <span class="d-block font-weight-bold">DIFFICULTY</span> <span class="d-block total-ratings">Hard</span> </div>
+                        <div class="ratings text-center py-5"> <span class="badge badge-secondary">{{ professor.difficulty }} <i class="fa fa-star-o"></i></span> <span class="d-block font-weight-bold">DIFFICULTY</span> <span class="d-block total-ratings">{{ txtDifficulty }}</span></div>
                     </div>
                     <div class="col-md-8">
                         <div class="rating-progress-bars">
-                            <div class="font-weight-bold text-center mt-3">16 REVIEWS</div>
+                            <div class="font-weight-bold text-center mt-3">{{ professor.reviews }} REVIEWS</div>
 
                             <div class="progress-1 align-items-center">
-                                <div class="font-italic">5 Stars</div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"> 71% </div>
+                                <div class="font-italic">Awesome</div>
+                                <div class="progress bg-dark">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ professor.awesome }}%;" aria-valuenow="{{ professor.awesome }}" aria-valuemin="0" aria-valuemax="100"> {{ professor.awesome }}% </div>
                                 </div>
-                                <div class="font-italic">4 Stars</div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">55%</div>
+                                <div class="font-italic">Good</div>
+                                <div class="progress bg-dark">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ professor.good }}%;" aria-valuenow="{{ professor.good }}" aria-valuemin="0" aria-valuemax="100">{{ professor.good }}%</div>
                                 </div>
-                                <div class="font-italic">3 Stars</div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">48%</div>
+                                <div class="font-italic">Okay</div>
+                                <div class="progress bg-dark">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ professor.okay }}%;" aria-valuenow="{{ professor.okay }}" aria-valuemin="0" aria-valuemax="100">{{ professor.okay }}%</div>
                                 </div>
-                                <div class="font-italic">2 Stars</div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">30%</div>
+                                <div class="font-italic">Bad</div>
+                                <div class="progress bg-dark">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ professor.bad }}%;" aria-valuenow="professor.bad" aria-valuemin="0" aria-valuemax="100">{{ professor.bad }}%</div>
                                 </div>
-                                <div class="font-italic">1 Stars</div>
-                                <div class="progress">
-                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">15%</div>
+                                <div class="font-italic">Awful</div>
+                                <div class="progress bg-dark">
+                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ professor.awful }}%;" aria-valuenow="professor.awful" aria-valuemin="0" aria-valuemax="100">{{ professor.awful }}%</div>
                                 </div>
                             </div>
                         </div>
@@ -59,6 +59,40 @@
                 </div>
             </div>
           </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="../static/review.css"/>
+<div class="review container">
+    <div class="d-flex justify-content-center row">
+        {% for review in reviews %}
+            <div class="d-flex flex-column comment-section shadow p-3 mb-5 bg-white rounded" id="myGroup">
+                <div class="bg-white p-2">
+                    <div class="d-flex flex-row user-info">
+                        <div class="d-flex flex-column justify-content-start"><span class="d-block font-weight-bold name">{{ review.hash_email }}</span>
+                            {% if review.recommend %}
+                            <span class="recommend">RECOMMEND</span>
+                            {% endif %}
+                            {% if not review.recommend %}
+                            <span class="recommend">DON'T RECOMMEND</span>
+                            {% endif %}
+                            <span class="date">{{ review.created }}</span>
+                        </div>
+                    </div>
+                    <p class="comment-text mt-4 bg-light p-3 rounded">{{ review.message }}</p>
+                </div>
+                <div class="bg-white p-2">
+                    <div class="d-flex flex-row">
+                        <div class="like cursor mr-4"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">11 Likes</span></div>
+                        <div class="like cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="{{'#collapse-%s'%review.id }}"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
+                    </div>
+                </div>
+                <div id="{{'collapse-%s'%review.id }}" class="collapse" data-parent="#myGroup">
+                    <div class="d-flex flex-row align-items-start"><textarea class="form-control shadow-none textarea"></textarea></div>
+                    <div class="text-right"><button class="btn btn-primary btn-sm shadow-none mt-2" type="button">Post</button></div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
