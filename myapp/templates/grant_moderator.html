@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" novalidate>
+    <div class="jumbotron">
+        <div class="container">
+            <form method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                <h1>Grant Moderator</h1>
+
+                <div class="form-group">
+                    <label>{{ form.email.label }}</label>
+                    {{ form.email(class="form-control", size=32) }}
+                </div>
+
+                {{ form.status(class="form-check-label") }}
+                <label>{{ form.status.label }}</label><br/>
+
+                {{ form.submit(class="btn btn-secondary") }}
+            </form>
+        </div>
+    </div>
+</form>
+{% endblock %}
