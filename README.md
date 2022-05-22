@@ -9,7 +9,6 @@ Professor Reviews is about helping students in answering a single question: "Wha
 ## Getting Started
 The website requires Python version 3.9 or above.
 
-Getting Started
 * Required dependencies include: Flask 2.x, SQLAlchemy, Flask-Login, WTForms
 * Run run.py inside myapp folder using python run.py command
 
