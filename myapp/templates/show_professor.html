@@ -64,35 +64,49 @@
 
 <link rel="stylesheet" href="../static/review.css"/>
 <div class="review container">
-    <div class="d-flex justify-content-center row">
-        {% for review in reviews %}
-            <div class="d-flex flex-column comment-section shadow p-3 mb-5 bg-white rounded" id="myGroup">
-                <div class="bg-white p-2">
-                    <div class="d-flex flex-row user-info">
-                        <div class="d-flex flex-column justify-content-start"><span class="d-block font-weight-bold name">{{ review.hash_email }}</span>
-                            {% if review.recommend %}
-                            <span class="recommend">RECOMMEND</span>
-                            {% endif %}
-                            {% if not review.recommend %}
-                            <span class="recommend">DON'T RECOMMEND</span>
-                            {% endif %}
-                            <span class="date">{{ review.created }}</span>
-                        </div>
-                    </div>
-                    <p class="comment-text mt-4 bg-light p-3 rounded">{{ review.message }}</p>
-                </div>
-                <div class="bg-white p-2">
-                    <div class="d-flex flex-row">
-                        <div class="like cursor mr-4"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">11 Likes</span></div>
-                        <div class="like cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="{{'#collapse-%s'%review.id }}"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
+    {% for review in reviews %}
+        <div class="d-flex flex-column comment-section shadow p-3 mb-5 bg-white rounded" id="myGroup">
+            <div class="bg-white p-2">
+                <div class="d-flex flex-row user-info">
+                    <div class="d-flex flex-column justify-content-start"><span class="d-block font-weight-bold name">By: {{ review.hash_email }}</span>
+                        {% if review.recommend %}
+                        <span class="recommend">RECOMMEND</span>
+                        {% endif %}
+                        {% if not review.recommend %}
+                        <span class="recommend">DON'T RECOMMEND</span>
+                        {% endif %}
+                        <span class="date">{{ review.created }}</span>
                     </div>
                 </div>
-                <div id="{{'collapse-%s'%review.id }}" class="collapse" data-parent="#myGroup">
-                    <div class="d-flex flex-row align-items-start"><textarea class="form-control shadow-none textarea"></textarea></div>
-                    <div class="text-right"><button class="btn btn-primary btn-sm shadow-none mt-2" type="button">Post</button></div>
+                <p class="comment-text mt-4 bg-light p-3 rounded">{{ review.message }}</p>
+            </div>
+            <div class="bg-white p-2">
+                <div class="d-flex flex-row">
+                    <a href="/show_professor/{{professor.id}}/like/{{review.id}}"><div class="like cursor mr-4"><i class="fa fa-thumbs-o-up"></i><span class="ml-1">{{ review.likes }} Likes</span></div></a>
+                    <div class="like cursor action-collapse" data-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="{{'#collapse-%s'%review.id }}"><i class="fa fa-commenting-o"></i><span class="ml-1">Comment</span></div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
+            <div id="{{'collapse-%s'%review.id }}" class="collapse" data-parent="#myGroup">
+                <form method="POST" novalidate>
+                    {{ form.hidden_tag() }}
+                    <div style="visibility: hidden">{{ form.review_id(value=review.id) }}</div>
+                    <div class="d-flex flex-row align-items-start">
+                        {{ form.message(class="form-control shadow-none textarea", size=256) }}
+                    </div>
+    
+                    <div class="text-right"><a href="/">{{ form.post(class="btn btn-primary btn-sm shadow-none mt-2") }}</div></a>
+                </form>
+                {% for comment in review.comments %}
+                <div class="d-flex flex-column comment-section mt-3 ml-1 bg-white rounded">
+                    <div class="d-flex flex-column justify-content-start"><span class="d-block font-weight-bold name">By: {{ comment.hash_email }}</span>
+                        <span class="date">{{ review.created }}</span>
+                        {{ comment.message }}
+                    </div>
+                </div>
+                <hr/>
+            {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
 </div>
 {% endblock %}

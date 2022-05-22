@@ -82,59 +82,23 @@
 <div id="teachers" class="section wb">
     <div class="container">
         <div class="row">
+            {% for professor in professors %}
             <div class="col-lg-3 col-md-6 col-12">
                 <div class="our-team">
                     <div class="team-img">
-                        <img src="static/teacher_1.jpg">                       
+                        <img src={{professor.image}} alt={{professor.name}}>                       
                     </div>
                     <div class="team-content">
-                        <h3 class="title">Zara Chavez</h3>
-                        <span class="post">75 Reviews</span>
-                        <p>Rating 5/5</p>
+                        <h3 class="title">{{ professor.name }}</h3>
+                        <span class="post2">{{ professor.department }} Department</span>
+                        <span class="post">{{ professor.reviews }} Reviews</span>
+                        <p>Rating {{ professor.rating }}</p>
+                        <a href="{{'/show_professor/%s'%professor.id }}" type="button" class="btn btn-lg btn-link">View</a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="our-team">
-                    <div class="team-img">
-                        <img src="static/teacher_2.jpg">                        
-                    </div>
-                    <div class="team-content">
-                        <h3 class="title">Steve Thomas</h3>
-                        <span class="post">69 Reviews</span>
-                        <p>Rating 5/5</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="our-team">
-                    <div class="team-img">
-                        <img src="static/teacher_3.jpg">                       
-                    </div>
-                    <div class="team-content">
-                        <h3 class="title">Clara Reynolds</h3>
-                        <span class="post">53 Reviews</span>
-                        <p>Rating 5/5</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 col-12">
-                <div class="our-team">
-                    <div class="team-img">
-                        <img src="static/teacher_4.jpg">                        
-                    </div>
-                    <div class="team-content">
-                        <h3 class="title">Miranda joy</h3>
-                        <span class="post">45 Reviews</span>
-                        <p>Rating 5/5</p>
-                    </div>
-                </div>
-            </div>         
+            {% endfor %}
         </div><!-- end row -->
     </div><!-- end container -->
 </div><!-- end section -->	
-
 {% endblock %}

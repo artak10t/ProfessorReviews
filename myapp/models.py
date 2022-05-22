@@ -48,7 +48,22 @@ class Review(db.Model):
     rating = db.Column(db.Integer)
     difficulty = db.Column(db.Integer)
     recommend = db.Column(db.Boolean, default=False)
+    likes = db.Column(db.Integer, default=0)
     created = db.Column(db.Date(), default=datetime.datetime.utcnow)
+
+class Like(db.Model):
+    __tablename__ = 'Like'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+    review_id = db.Column(db.Integer, db.ForeignKey('Review.id'))
+    created = db.Column(db.Date(), default=datetime.datetime.utcnow)
+
+class Comment(db.Model):
+    __tablename__ = 'Comment'
+    id = db.Column(db.Integer, primary_key=True)
+    hash_email = db.Column(db.String(512))
+    review_id = db.Column(db.Integer, db.ForeignKey('Review.id'))
+    message = db.Column(db.String(256), default='')
 
 @login.user_loader
 def load_user(id):

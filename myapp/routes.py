@@ -1,6 +1,6 @@
 from myapp import myapp_obj
-from myapp.forms import ReviewForm
-from myapp.models import Professor, Review
+from myapp.forms import ReviewForm, CommentForm
+from myapp.models import Professor, Review, Like, Comment
 from flask import render_template, flash, redirect, request
 from flask_login import current_user, login_user, logout_user, login_required
 from myapp import db
@@ -8,10 +8,12 @@ import hashlib
 
 @myapp_obj.route("/")
 def home():
-    if(current_user.is_authenticated):
-        return render_template('home.html', authorized=current_user.is_authenticated, moderator=current_user.moderator)
+    professors = Professor.query.order_by(Professor.rating.desc()).limit(4).all()
 
-    return render_template('home.html', authorized=current_user.is_authenticated)
+    if(current_user.is_authenticated):
+        return render_template('home.html', professors=professors, authorized=current_user.is_authenticated, moderator=current_user.moderator)
+
+    return render_template('home.html', professors=professors, authorized=current_user.is_authenticated)
 
 @myapp_obj.route("/about")
 def about():
@@ -30,13 +32,16 @@ def search():
 
     return render_template('search.html', professors=professors, authorized=current_user.is_authenticated)
 
-@myapp_obj.route("/show_professor/<id>", methods=['GET'])
+@myapp_obj.route("/show_professor/<id>", methods=['GET', 'POST'])
+@login_required
 def show(id):
     professor = Professor.query.filter_by(id=id).first()
     if professor == None:
         return redirect('/')
 
-    reviews = Review.query.filter_by(professor_id=professor.id).limit(30).all()
+    reviews = Review.query.filter_by(professor_id=professor.id).order_by(Review.likes.desc()).limit(30).all()
+    for review in reviews:
+        review.comments = Comment.query.filter_by(review_id=review.id).all()
     txtRating = 'Awesome'
     txtDifficulty = 'Impossible'
 
@@ -62,10 +67,23 @@ def show(id):
     if professor.difficulty >= 4:
         txtDifficulty = 'Impossible'
 
-    if(current_user.is_authenticated):
-        return render_template('show_professor.html', txtDifficulty=txtDifficulty, txtRating=txtRating, reviews=reviews, professor=professor, authorized=current_user.is_authenticated, moderator=current_user.moderator)
+    form = CommentForm()
+    if form.validate_on_submit():
+        try:
+            hash_email = hashlib.sha256(current_user.email.encode('ascii'))
+            hash_email = hash_email.hexdigest()
+            hash_email = hash_email[:12]
+            comment = Comment(hash_email=hash_email, review_id=form.review_id.data, message=form.message.data)
+            db.session.add(comment)
+            db.session.commit()
+            return redirect('/show_professor/' + id)
+        except Exception:
+            return redirect('/show_professor/' + id)
 
-    return render_template('show_professor.html', txtDifficulty=txtDifficulty, txtRating=txtRating, reviews=reviews, professor=professor, authorized=current_user.is_authenticated)
+    if(current_user.is_authenticated):
+        return render_template('show_professor.html', form=form, txtDifficulty=txtDifficulty, txtRating=txtRating, reviews=reviews, professor=professor, authorized=current_user.is_authenticated, moderator=current_user.moderator)
+
+    return render_template('show_professor.html', form=form, txtDifficulty=txtDifficulty, txtRating=txtRating, reviews=reviews, professor=professor, authorized=current_user.is_authenticated)
 
 @myapp_obj.route("/add_review/<id>", methods=['GET', 'POST'])
 @login_required
@@ -102,7 +120,9 @@ def addReview(id):
                 difficulty = 1
 
             hash_email = hashlib.sha256(current_user.email.encode('ascii'))
-            review = Review(hash_email=hash_email.hexdigest(), professor_id=professor.id, message=form.message.data, rating=rating, difficulty=difficulty, recommend=form.recommend.data)
+            hash_email = hash_email.hexdigest()
+            hash_email = hash_email[:12]
+            review = Review(hash_email=hash_email, professor_id=professor.id, message=form.message.data, rating=rating, difficulty=difficulty, recommend=form.recommend.data)
             db.session.add(review)
             db.session.commit()
 
@@ -153,3 +173,25 @@ def addReview(id):
         return render_template('add_review.html', form=form, authorized=current_user.is_authenticated, moderator=current_user.moderator)
 
     return render_template('add_review.html', form=form, authorized=current_user.is_authenticated)
+
+@myapp_obj.route("/show_professor/<id>/like/<review_id>", methods=['GET', 'POST'])
+@login_required
+def GiveLike(id, review_id):
+    review = Review.query.filter_by(id=review_id).first()
+    if review == None:
+        return redirect('/show_professor/' + id)
+
+    try:
+        likeCheck = Like.query.filter_by(user_id=current_user.id, review_id=review_id).first()
+        if likeCheck == None:
+            like = Like(user_id=current_user.id, review_id=review_id)
+            review.likes += 1
+            db.session.add(like)
+        elif likeCheck != None:
+            Like.query.filter_by(id=likeCheck.id).delete()
+            review.likes -= 1
+
+        db.session.commit()           
+        return redirect('/show_professor/' + id)
+    except Exception:
+        return redirect('/show_professor/' + id)

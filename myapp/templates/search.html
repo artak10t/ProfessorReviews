@@ -1,25 +1,26 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container p-3 row  mx-auto">
-    {% for professor in professors %}
-    <ul class="list-group m-3">
-        <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 25rem;">
-            <div class="card-body">
-                <div class="card-block">
-                    <h5 class="card-title" text="Title">
-                        <div class="text-center">{{ professor.name }}</div>
-                    </h5>
-                    <div class="d-flex justify-content-center">
-                        <img src={{professor.image}} alt={{professor.name}} style="height: 150px; width: auto;border-style: solid; border-color: #6c757d;">
+<div id="teachers" class="section wb">
+    <div class="container">
+        <div class="row">
+            {% for professor in professors %}
+            <div class="col-lg-3 col-md-6 col-12">
+                <div class="our-team">
+                    <div class="team-img">
+                        <img src={{professor.image}} alt={{professor.name}}>                       
                     </div>
-                    <hr/>
-                    <div class="text-center">{{ professor.department }} Department</div><br/>
-                    <a href="{{'/show_professor/%s'%professor.id }}" class="btn btn-secondary btn-block">View</a>
+                    <div class="team-content">
+                        <h3 class="title">{{ professor.name }}</h3>
+                        <span class="post2">{{ professor.department }} Department</span>
+                        <span class="post">{{ professor.reviews }} Reviews</span>
+                        <p>Rating {{ professor.rating }}</p>
+                        <a href="{{'/show_professor/%s'%professor.id }}" type="button" class="btn btn-lg btn-link">View</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </ul>
-    {% endfor %}
-</div>
+            {% endfor %}
+        </div><!-- end row -->
+    </div><!-- end container -->
+</div><!-- end section -->	
 {% endblock %}

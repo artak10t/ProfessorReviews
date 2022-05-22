@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField, SelectField, HiddenField, IntegerField
 from wtforms.validators import DataRequired
 
 class LoginForm(FlaskForm):
@@ -20,6 +20,11 @@ class ReviewForm(FlaskForm):
     difficulty = SelectField('Difficulty', choices=['Impossible', 'Hard', 'Average', 'Easy', 'Very Easy'], validators=[DataRequired()], default='Impossible')
     recommend = BooleanField('Recommend', default=False)
     submit = SubmitField('Submit')
+
+class CommentForm(FlaskForm):
+    review_id = IntegerField()
+    message = TextAreaField('Message', default='')
+    post = SubmitField('Post')
 
 class GrantModeratorForm(FlaskForm):
     email = StringField('SJSU Email', validators=[DataRequired()])

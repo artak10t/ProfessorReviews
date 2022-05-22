@@ -78,6 +78,11 @@
     font-size: 15px;
     color: #999;
 }
+.our-team .post2{
+    display: block;
+    font-size: 15px;
+    color: #555;
+}
 .our-team:hover .team-content{
 	background: #4babb1;
 }
