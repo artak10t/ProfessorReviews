@@ -10,7 +10,8 @@ Professor Reviews is about helping students in answering a single question: "Wha
 The website requires Python version 3.9 or above.
 
 * Required dependencies include: Flask 2.x, SQLAlchemy, Flask-Login, WTForms
-* Run run.py inside myapp folder using python run.py command
+* For Linux systems run run.py inside myapp folder using python run.py command.
+* For Windows systems use Visual Studio Code to run run.py inside myapp folder.
 
 ![example_1](example_1.jpg)
 ![example_2](example_2.jpg)
