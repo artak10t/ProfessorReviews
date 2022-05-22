@@ -6,7 +6,7 @@ Professor Reviews is about helping students in answering a single question: "Wha
 * Professors can also use this tool to gauge the experience students are having in their class.
 * Using SHA2 one-way encryption allows students to stay anonymous.
 
-## [Getting Started]
+## Getting Started
 The website requires Python version 3.9 or above.
 
 Getting Started
